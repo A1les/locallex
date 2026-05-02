@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LocalLex README</title>
+    <link rel="stylesheet" href="readme.css">
+  </head>
+  <body>
+    <main class="doc">
+      <header class="hero">
+        <img src="../../assets/icon-48.png" alt="" width="44" height="44">
+        <div>
+          <h1>LocalLex README</h1>
+          <p>离线极速英汉查词插件说明</p>
+        </div>
+      </header>
+
+      <section>
+        <h2>功能</h2>
+        <ul>
+          <li>完全离线英汉查词，不调用在线翻译、AI API 或远程脚本。</li>
+          <li>双击网页英文单词，在文本附近显示查询界面。</li>
+          <li>划选英文单词或短语，先显示 LocalLex 图标按钮，再点击显示释义。</li>
+          <li>点击 Chrome 右上角 LocalLex 图标打开插件界面手动查词。</li>
+          <li><kbd>Alt+B</kbd> 打开插件界面。</li>
+          <li>支持 1-5 个英文 token 的短语、词形映射和基础规则还原。</li>
+          <li>支持生词本、查询统计、CSV 导出、浅色/暗黑/跟随系统主题。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>安装与使用</h2>
+        <ol>
+          <li>打开 <code>chrome://extensions</code>。</li>
+          <li>开启 Developer Mode。</li>
+          <li>点击 Load unpacked，选择 <code>offline-ec-dict</code> 目录。</li>
+          <li>如果插件已加载过，请点击 Reload，并刷新已经打开的网页。</li>
+        </ol>
+        <p>使用时可双击单词、划选短语后点击 LocalLex 图标按钮，也可以点击插件图标或按 <kbd>Alt+B</kbd> 打开插件界面。</p>
+      </section>
+
+      <section>
+        <h2>离线与隐私</h2>
+        <p>LocalLex 只读取扩展包内的本地 JSON 文件，并将词库、生词本、设置和查询统计保存到本机 IndexedDB。用户选中文本和输入内容不会上传。</p>
+      </section>
+
+      <section>
+        <h2>词库与例句来源</h2>
+        <ul>
+          <li>主词库：<a href="https://github.com/skywind3000/ECDICT" target="_blank" rel="noreferrer">ECDICT</a>。</li>
+          <li>真实英中例句：<a href="https://tatoeba.org/gos/downloads" target="_blank" rel="noreferrer">Tatoeba downloads</a>。</li>
+          <li>Tatoeba per-language exports：<a href="https://downloads.tatoeba.org/exports/per_language/" target="_blank" rel="noreferrer">exports/per_language</a>。</li>
+        </ul>
+        <p>例句只使用构建阶段导入的真实英中句对。没有真实例句时隐藏例句区，不使用模板句。</p>
+      </section>
+
+      <section>
+        <h2>自定义词库格式</h2>
+        <p>设置页支持导入 JSON，不直接导入 CSV。最简单格式是词条数组：</p>
+        <pre><code>[
+  {
+    "word": "hello",
+    "phonetic": "həˈləʊ",
+    "translation": "int. 你好",
+    "definition": "used as a greeting"
+  }
+]</code></pre>
+        <p>完整格式：</p>
+        <pre><code>{
+  "version": "custom-1",
+  "name": "My Dictionary",
+  "entries": [
+    {
+      "word": "study",
+      "phonetic": "ˈstʌdi",
+      "translation": "n. 学习；研究；v. 学习；研究",
+      "definition": "the activity of learning or gaining knowledge",
+      "senses": [
+        {
+          "pos": "n.",
+          "translation": "学习；研究",
+          "definition": "the activity of learning or gaining knowledge"
+        }
+      ]
+    }
+  ],
+  "forms": [
+    {
+      "form": "studies",
+      "base": "study"
+    }
+  ],
+  "examples": [
+    {
+      "key": "study",
+      "examples": [
+        {
+          "en": "She studies English every morning.",
+          "zh": "她每天早上学习英语。",
+          "source": "custom"
+        }
+      ]
+    }
+  ]
+}</code></pre>
+      </section>
+
+      <section>
+        <h2>开发命令</h2>
+        <pre><code>npm install
+npm run check
+npm run download:dict
+npm run download:examples
+npm run build:dict
+npm run build:examples
+npm run update:dict</code></pre>
+      </section>
+    </main>
+  </body>
+</html>

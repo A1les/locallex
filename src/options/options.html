@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LocalLex 设置</title>
+    <link rel="stylesheet" href="options.css">
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div class="brand">
+          <img class="brand-mark" src="../../assets/icon-48.png" alt="" width="44" height="44">
+          <div>
+            <h1>LocalLex</h1>
+            <p>离线极速英汉查词</p>
+          </div>
+        </div>
+        <div class="status-pill" id="dictionary-status">读取中...</div>
+      </header>
+
+      <section class="overview" aria-label="概览">
+        <article class="metric">
+          <span class="metric-label">插件版本</span>
+          <strong id="extension-version">-</strong>
+        </article>
+        <article class="metric">
+          <span class="metric-label">词条</span>
+          <strong id="entry-count">-</strong>
+        </article>
+        <article class="metric">
+          <span class="metric-label">词形</span>
+          <strong id="form-count">-</strong>
+        </article>
+        <article class="metric">
+          <span class="metric-label">例句</span>
+          <strong id="example-count">-</strong>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>查词测试</h2>
+            <p>支持单词和 1-5 个英文 token 的短语。</p>
+          </div>
+        </div>
+        <div class="lookup-row">
+          <input id="test-input" type="text" autocomplete="off" spellcheck="false" placeholder="move / come on">
+          <button id="test-button" class="primary" type="button">查询</button>
+        </div>
+        <div id="test-result" class="result-box" aria-live="polite"></div>
+      </section>
+
+      <section class="two-column">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>主题</h2>
+              <p>插件界面和网页查询界面会同步主题。</p>
+            </div>
+          </div>
+          <div class="segmented" aria-label="主题">
+            <button class="theme-option" data-theme="system" type="button">跟随系统</button>
+            <button class="theme-option" data-theme="light" type="button">浅色</button>
+            <button class="theme-option" data-theme="dark" type="button">暗黑</button>
+          </div>
+          <div class="setting-row">
+            <label for="example-enabled-checkbox">显示例句</label>
+            <input id="example-enabled-checkbox" type="checkbox">
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>快捷键</h2>
+              <p>Chrome 统一管理扩展快捷键；默认打开插件界面。</p>
+            </div>
+          </div>
+          <div class="shortcut-row">
+            <span>Alt+B</span>
+            <button id="shortcut-button" type="button">打开设置</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>词库管理</h2>
+            <p>内置词库来自 ECDICT；例句来自 Tatoeba 英中句对，运行时完全离线。</p>
+          </div>
+        </div>
+        <dl class="detail-list">
+          <div>
+            <dt>词典版本</dt>
+            <dd id="dictionary-version">-</dd>
+          </div>
+          <div>
+            <dt>来源</dt>
+            <dd id="dictionary-source">-</dd>
+          </div>
+          <div>
+            <dt>导入时间</dt>
+            <dd id="imported-at">-</dd>
+          </div>
+        </dl>
+        <input id="dictionary-file" type="file" accept=".json,application/json">
+        <div class="actions">
+          <button id="import-button" type="button">导入/替换词库</button>
+          <button id="restore-button" type="button">恢复内置词库</button>
+          <button id="clear-button" class="danger" type="button">删除当前词库</button>
+        </div>
+        <div class="source-links" aria-label="数据来源与格式说明">
+          <a href="https://github.com/skywind3000/ECDICT" target="_blank" rel="noreferrer">ECDICT 词库</a>
+          <a href="https://tatoeba.org/gos/downloads" target="_blank" rel="noreferrer">Tatoeba 下载</a>
+          <a href="https://downloads.tatoeba.org/exports/per_language/" target="_blank" rel="noreferrer">Tatoeba exports</a>
+          <a href="../docs/readme.html" target="_blank" rel="noreferrer">内部 README</a>
+          <span>导入 JSON 格式见内部 README。</span>
+        </div>
+        <p id="operation-status" class="operation-status"></p>
+      </section>
+
+      <section class="two-column">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>生词本</h2>
+              <p id="favorites-summary">读取中...</p>
+            </div>
+            <div class="mini-actions">
+              <button id="export-favorites-button" type="button">导出 CSV</button>
+            </div>
+          </div>
+          <div id="favorites-list" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>查询统计</h2>
+              <p id="stats-summary">读取中...</p>
+              <p class="hint">sources 表示 popup、page、contextMenu 等本地查询来源。</p>
+            </div>
+            <div class="mini-actions">
+              <button id="export-stats-button" type="button">导出 CSV</button>
+              <button id="clear-stats-button" class="danger" type="button">清空</button>
+            </div>
+          </div>
+          <h3>最近查询</h3>
+          <div id="recent-list" class="list compact"></div>
+          <h3>查询排行</h3>
+          <div id="top-list" class="list compact"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../normalize.js"></script>
+    <script src="../db.js"></script>
+    <script src="../lookup.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

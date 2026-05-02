@@ -1,0 +1,19 @@
+{
+  "name": "locallex",
+  "version": "0.4.2",
+  "scripts": {
+    "download:dict": "node tools/download-ecdict.js",
+    "download:examples": "node tools/download-examples.js",
+    "build:dict": "node tools/build-dict.js",
+    "build:examples": "node tools/build-examples.js",
+    "update:dict": "node tools/download-ecdict.js && node tools/build-dict.js && node tools/download-examples.js && node tools/build-examples.js",
+    "clean:data": "node tools/build-dict.js --clean",
+    "package": "node tools/package-extension.js",
+    "check": "node --check src/background.js && node --check src/normalize.js && node --check src/db.js && node --check src/lookup.js && node --check src/popup-ui.js && node --check src/lookup-client.js && node --check src/lookup-box.js && node --check src/content.js && node --check src/options/options.js && node --check src/popup/popup.js && node --check tools/build-dict.js && node --check tools/build-examples.js && node --check tools/download-ecdict.js && node --check tools/download-examples.js && node --check tools/package-extension.js"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "csv-parse": "^6.1.0",
+    "unbzip2-stream": "^1.4.3"
+  }
+}
