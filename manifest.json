@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "LocalLex",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "离线极速英汉查词：双击、划词、快捷键与本地生词本。",
   "icons": {
     "16": "assets/icon-16.png",

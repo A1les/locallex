@@ -1,6 +1,6 @@
 {
   "name": "locallex",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "scripts": {
     "download:dict": "node tools/download-ecdict.js",
     "download:examples": "node tools/download-examples.js",
