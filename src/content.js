@@ -2,7 +2,9 @@
   "use strict";
 
   const root = globalThis.__offlineEcDict = globalThis.__offlineEcDict || {};
-  const CONTENT_SCRIPT_VERSION = "locallex-content-0.5.1";
+  const CONTENT_SCRIPT_VERSION = "locallex-content-0.5.2";
+  const SELECTION_BUTTON_DELAY_MS = 260;
+  const DOUBLE_CLICK_SUPPRESS_MS = 360;
   const INSTANCE_ID = CONTENT_SCRIPT_VERSION + ":" + Date.now() + ":" + Math.random().toString(36).slice(2);
 
   if (typeof root.contentScriptCleanup === "function") {
@@ -27,6 +29,7 @@
   let dblClickTimer = 0;
   let lookupToken = 0;
   let cleanedUp = false;
+  let suppressSelectionUntil = 0;
 
   const handlers = {
     mouseup: onMouseUp,
@@ -288,6 +291,10 @@
       return;
     }
 
+    if (Date.now() < suppressSelectionUntil) {
+      return;
+    }
+
     if (isFromExtensionHost(eventTarget)) {
       return;
     }
@@ -313,6 +320,9 @@
     }
 
     if (event.detail > 1) {
+      suppressSelectionUntil = Date.now() + DOUBLE_CLICK_SUPPRESS_MS;
+      window.clearTimeout(selectionButtonTimer);
+      ui.closeSelectionButton();
       return;
     }
 
@@ -321,7 +331,7 @@
     window.clearTimeout(selectionButtonTimer);
     selectionButtonTimer = window.setTimeout(function () {
       handleMouseSelection(eventTarget);
-    }, 180);
+    }, SELECTION_BUTTON_DELAY_MS);
   }
 
   function onDoubleClick(event) {
@@ -331,6 +341,8 @@
 
     window.clearTimeout(selectionButtonTimer);
     window.clearTimeout(dblClickTimer);
+    suppressSelectionUntil = Date.now() + DOUBLE_CLICK_SUPPRESS_MS;
+    ui.closeSelectionButton();
     dblClickTimer = window.setTimeout(function () {
       handleDoubleClickLookup(event);
     }, 60);

@@ -9,7 +9,7 @@ importScripts("normalize.js", "db.js", "lookup.js");
     "src/lookup-client.js",
     "src/content.js"
   ];
-  const CONTENT_SCRIPT_VERSION = "locallex-content-0.5.1";
+  const CONTENT_SCRIPT_VERSION = "locallex-content-0.5.2";
 
   chrome.runtime.onInstalled.addListener(function () {
     createContextMenu();
